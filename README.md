@@ -11,3 +11,5 @@ The .py file is source code and requires the libraries "colorama" and "pygments"
 <img width="885" height="312" alt="image" src="https://github.com/user-attachments/assets/db3462df-6492-4a03-98bc-6ad119ebee36" />
 This shows the Main menu and file opening process, where the user is prompted to enter a file which does not exist.
 When asked to create the file, the user typed "n" for no.
+
+NO AI WAS USED IN THE MAKING OF THIS TOOL!
