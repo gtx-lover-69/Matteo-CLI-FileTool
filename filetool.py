@@ -25,16 +25,10 @@ if not os.path.isfile("prefs.json"):
 else:
     with open("prefs.json", "r") as f:
         data = json.load(f)
-        for (key,value) in data.items():
-            key = value
 
+        clearScreen = data.get("clearScreen", True)
+        adminpass = data.get("adminpass", 1234)
 
-# Clears the previous text
-def clear_screen ():
-    if clearScreen:
-        os.system('cls' if os.name == 'nt' else 'clear')
-    else:
-        pass
 
 def preferences():
     time.sleep(0.2)
@@ -51,6 +45,7 @@ def preferences():
         key = keys[int(changeChoice) - 1]
         data[key] = not data[key]
 
+        global clearScreen
         clearScreen = data[key]
 
         newData = {k: v for k, v in data.items()}
@@ -65,6 +60,8 @@ def preferences():
     elif changeChoice == "2":
         keys = list(data.keys())
         key = keys[int(changeChoice) - 1]
+        global adminpass
+
         adminpass = data[key] = int(input("Enter the new password: "))
 
         newData = {k: v for k, v in data.items()}
@@ -76,6 +73,13 @@ def preferences():
         time.sleep(0.2)
         clear_screen()
         start()
+
+# Clears the previous text
+def clear_screen ():
+    if clearScreen == True:
+        os.system('cls' if os.name == 'nt' else 'clear')
+    else:
+        print(" ")
 
 # File opener
 def openfile(name,first):
@@ -200,6 +204,7 @@ def opensequence():
 
                         for i, line in enumerate(lines):
                             if findchoice.upper().strip() in line.upper():
+                                found = True
                                 print("Found!", line.strip().replace(findchoice, Style.BRIGHT + findchoice + Style.RESET_ALL), f"<- Line {i + 1}")
 
                                 deleteChoice = input("Would you like to remove this string? " + Style.DIM + "(Y/n) " + Style.RESET_ALL)
@@ -364,10 +369,10 @@ def start():
         print(Style.BRIGHT + "v0.5.1: " + Style.RESET_ALL + "Fixed a bug where \\n and \\t didn't work as newline and tab.")
         print(Style.BRIGHT + "v0.5.2: " + Style.RESET_ALL + "Fixed a formatting error related to creation and editing of files.")
         print(Style.BRIGHT + "v0.5.3: " + Style.RESET_ALL + "Fixed a bug where the CANCEL operation didn't work. Added minor optimizations.")
-        print(Style.BRIGHT + "v0.5.4: " + Style.RESET_ALL + "Optimized further and removed bugs")
+        print(Style.BRIGHT + "v0.5.4: " + Style.RESET_ALL + "Optimized further and squashed bugs")
         print(Style.BRIGHT + "v0.6: " + Style.RESET_ALL + "Made the program prettier, added automatic file type detection, and added code syntax highlighting.")
         print(Style.BRIGHT + "v0.6.1: " + Style.RESET_ALL + "Added the ability for the user to remove a specific string from  a file")
-        print(Style.BRIGHT + "v0.7: " + Style.RESET_ALL + "Added preferences menu.")
+        print(Style.BRIGHT + "v0.7: " + Style.RESET_ALL + "Added preferences menu. Squashed bugs.")
         print(Style.BRIGHT + "v0.7.1: " + Style.RESET_ALL + "Added a feature that clears the previous outputs. This can be disabled in preferences.")
         input("Press " + Style.BRIGHT + "enter" + Style.RESET_ALL + " to go back")
         time.sleep(0.2)
@@ -389,3 +394,4 @@ def start():
 
 
 start()
+
